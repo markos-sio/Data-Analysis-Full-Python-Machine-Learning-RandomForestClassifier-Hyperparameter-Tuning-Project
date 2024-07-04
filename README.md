@@ -1,4 +1,4 @@
-Medical Appointment No-Show Analysis
+Medical Appointment No-Show Analysis:
 This project analyzes medical appointment no-show data to understand the factors influencing patient attendance. It includes data preprocessing, exploratory data analysis, and predictive modeling using logistic regression and random forest classifiers with SMOTE to address class imbalance.
 
 
