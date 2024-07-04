@@ -229,7 +229,7 @@ data_Show = data['Show'] #Defining the target variable
 
 X, y = data_without_Show, data_Show
 
-# Initialize Logistic Regression Model
+# Initializing Logistic Regression Model
 lreg = LogisticRegression(random_state=42, max_iter=1000)
 
 # Using K-Fold Cross Validation
@@ -259,7 +259,7 @@ rf = RandomForestClassifier(random_state=42, n_estimators=100)
 # Creating a pipeline with SMOTE and Random Forest
 pipeline = Pipeline([('smote', smote), ('rf', rf)])
 
-# Initialize K-Fold Cross Validation
+# Initializing K-Fold Cross Validation
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 # Cross-validation predictions
@@ -280,7 +280,7 @@ print(f"\nAccuracy Score: {acc_score}")
 
 X, y = data_without_Show, data_Show
 
-# Define the parameter distribution for hyperparameter tuning
+# Defining the parameter distribution for hyperparameter tuning
 param_dist = {
     'randomforestclassifier__n_estimators': randint(100, 300),
     'randomforestclassifier__max_depth': [None, 10, 20, 30],
@@ -289,34 +289,34 @@ param_dist = {
     'randomforestclassifier__max_features': ['sqrt', 'log2', None]
 }
 
-# Initialize the Random Forest model
+# Initializing the Random Forest model
 rf = RandomForestClassifier(random_state=42)
 
-# Set up the pipeline with SMOTE and Random Forest
+# Setting up the pipeline with SMOTE and Random Forest
 pipeline = Pipeline([
     ('smote', SMOTE(random_state=42)),
     ('randomforestclassifier', rf)
 ])
 
-# Set up the RandomizedSearchCV with reduced iterations and 3-fold CV
+# Setting up the RandomizedSearchCV 
 random_search = RandomizedSearchCV(
     pipeline, param_distributions=param_dist, n_iter=20, cv=3, 
     scoring='accuracy', n_jobs=-1, random_state=42, verbose=2
 )
 
-# Fit the RandomizedSearchCV to the data
+# Fitting the RandomizedSearchCV to the data
 random_search.fit(X, y)
 
-# Get the best parameters and the best model
+# Getting the best parameters and the best model
 best_params = random_search.best_params_
 best_model = random_search.best_estimator_
 
 print(f"Best Parameters: {best_params}")
 
-# Predict using the best model
+# Predicting using the best model
 y_pred = best_model.predict(X)
 
-# Evaluate the best model
+# Evaluating the best model
 print(f"Confusion Matrix:\n {confusion_matrix(y, y_pred)}")
 print(f"\nClassification Report:\n {classification_report(y, y_pred)}")
 print(f"\nAccuracy Score: {accuracy_score(y, y_pred)}")
